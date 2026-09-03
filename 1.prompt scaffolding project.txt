@@ -1,0 +1,15 @@
+Buatkan issue.md berisi planning untuk membuat ini :
+
+Buat folder baru di project ini
+
+menggunakan Buatkan
+dan gunakan dependency :
+- ElysiaJS
+- Drizzle
+- Mysql
+
+Jangan terlalu low level atau detail
+
+Cukup instuksikan secara high level
+
+Nanti document planning nyua akan digunakan oleh programmer atau model lebih murah untuk di implementasikan
