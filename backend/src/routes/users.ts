@@ -1,5 +1,6 @@
 import { Elysia, t } from "elysia";
 import { db } from "../db";
+import { createUser } from "../services/user-service";
 import { users } from "../db/schema";
 import { eq } from "drizzle-orm";
 
@@ -35,25 +36,20 @@ export const userRoutes = new Elysia({ prefix: "/users" })
     "/",
     async ({ body, set }) => {
       try {
-        const result = await db.insert(users).values({
-          name: body.name,
-          email: body.email,
-        });
-
+        const { name, email, password } = body;
+        const userId = await createUser({ name, email, password });
         set.status = 201;
-        return {
-          message: "User created successfully",
-          id: result[0].insertId,
-        };
+        return { data: "OK" };
       } catch (error: any) {
         set.status = 400;
-        return { message: error.message || "Failed to create user" };
+        return { data: "Failed to create new user" };
       }
     },
     {
       body: t.Object({
         name: t.String({ minLength: 1 }),
         email: t.String({ format: "email" }),
+        password: t.String({ minLength: 1 }),
       }),
     }
   )
